@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div data-collapse="medium" data-animation="default" data-duration="400" data-no-scroll="1" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
+  <div data-animation="default" class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" data-duration="400">
     <div class="w-container">
       <a href="{{ links.2f }}" class="logo-block w-nav-brand"><img src="{{ images.-2a485a80.url }}" alt="{{ images.-2a485a80.alt | trim | escape }}" class="logo"></a>
       <nav role="navigation" class="nav-menu w-nav-menu">
@@ -247,28 +247,28 @@
         <div class="small-section-title">{{ texts.-4cf726d4 }}</div>
         <h2 class="section-title">{{ texts.-5540682f }}</h2>
       </div>
-      <div class="portfolio-list-wrapper w-dyn-list">
-        <div role="list" class="portfolio-list w-clearfix w-dyn-items w-row">
-          <div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item w-col w-col-3">
+      {%- assign collection = collections.portfolio | sort: "-created-on, title" | limit: 4 -%}<div class="portfolio-list-wrapper w-dyn-list">
+        {%- unless collection.length == 0 -%}<div role="list" class="portfolio-list w-clearfix w-dyn-items w-row">
+          {%- for item in collection -%}<div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item w-col w-col-3">
             <div data-ix="hide-lightbox" class="portfolio-lightbox-overlay">
               <div class="portfolio-image-wrapper">
-                <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ images.0.url }}" alt="{{ images.0.alt | trim | escape }}" class="portfolio-image">
+                <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ item.data.f_image.url }}" alt="{{ item.data.f_image.alt }}" class="portfolio-image">
               </div>
             </div>
-            <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block w-inline-block">
+            <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block w-inline-block" style="background-image: url('{{item.data.f_image.url}}');">
               <div data-ix="hide-block-overlay" class="portfolio-overlay-block">
                 <div class="portfolio-overlay-content-wrapper">
-                  <div data-ix="hide-block-title" class="portfolio-block-title"></div>
-                  <div data-ix="hide-block-description" class="portfolio-block-subtitle"></div>
+                  <div data-ix="hide-block-title" class="portfolio-block-title">{{ item.data.title }}</div>
+                  <div data-ix="hide-block-description" class="portfolio-block-subtitle">{{ item.data.f_short-description }}</div>
                   <div data-ix="hide-block-button" class="button text-button">{{ texts.1624a3ae }}</div>
                 </div>
               </div>
             </a>
-          </div>
-        </div>
-        <div class="empty-state w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endunless -%}
+        {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
           <div>{{ texts.-5710415d }}</div>
-        </div>
+        </div>{%- endif -%}
       </div>
     </div>
   </div>
@@ -313,39 +313,39 @@
         <h2 class="section-title">{{ texts.-4d3dee6c }}</h2>
         <div class="section-description">{{ texts.6f9475d5 }}</div>
       </div>
-      <div class="team-member-list-wrapper w-dyn-list">
-        <div role="list" class="team-member-list w-dyn-items w-row">
-          <div role="listitem" class="team-member-item w-dyn-item w-col w-col-6">
-            <div class="team-image-block">
+      {%- assign collection = collections.team | filter: "f_featured,eq,true", "ALL", page.inputPath | limit: 2 | sort: "-created-on" -%}<div class="team-member-list-wrapper w-dyn-list">
+        {%- unless collection.length == 0 -%}<div role="list" class="team-member-list w-dyn-items w-row">
+          {%- for item in collection -%}<div role="listitem" class="team-member-item w-dyn-item w-col w-col-6">
+            <div class="team-image-block" style="background-image: url('{{item.data.f_background-image.url}}');">
               <div class="team-image-block-overlay">
-                <div class="team-block-title"></div>
-                <div class="team-block-title subtitle"></div>
-                <a href="{{ links.71fe362 }}" class="team-social-button w-inline-block"><img src="{{ images.-71d71b51.url }}" alt="{{ images.-71d71b51.alt | trim | escape }}" class="team-social-icon"></a>
-                <a href="{{ links.-5ba5d2a3 }}" target="_blank" class="team-social-button w-inline-block"><img src="{{ images.79f78cf4.url }}" alt="{{ images.79f78cf4.alt | trim | escape }}" class="team-social-icon"></a>
-                <a href="{{ links.4a276395 }}" target="_blank" class="team-social-button w-inline-block"><img src="{{ images.27c14b6e.url }}" alt="{{ images.27c14b6e.alt | trim | escape }}" class="team-social-icon"></a>
+                <div class="team-block-title">{{ item.data.title }}</div>
+                <div class="team-block-title subtitle">{{ item.data.f_job-title }}</div>
+                {%- if item.data.f_facebook-link -%}<a href="{{ item.data.f_facebook-link }}" class="team-social-button w-inline-block"><img src="{{ images.-71d71b51.url }}" alt="{{ images.-71d71b51.alt | trim | escape }}" class="team-social-icon"></a>{%- endif -%}
+                {%- if item.data.f_twitter-link -%}<a href="{{ item.data.f_twitter-link }}" target="_blank" class="team-social-button w-inline-block"><img src="{{ images.79f78cf4.url }}" alt="{{ images.79f78cf4.alt | trim | escape }}" class="team-social-icon"></a>{%- endif -%}
+                {%- if item.data.f_google-link -%}<a href="{{ item.data.f_google-link }}" target="_blank" class="team-social-button w-inline-block"><img src="{{ images.27c14b6e.url }}" alt="{{ images.27c14b6e.alt | trim | escape }}" class="team-social-icon"></a>{%- endif -%}
               </div>
             </div>
-          </div>
-        </div>
-        <div class="empty-state w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endunless -%}
+        {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
           <div>{{ texts.3d503d2b }}</div>
-        </div>
+        </div>{%- endif -%}
       </div>
-      <div class="team-member-list-wrapper w-dyn-list">
-        <div role="list" class="team-member-list w-dyn-items w-row">
-          <div role="listitem" class="team-member-item w-dyn-item w-col w-col-4">
-            <div class="team-outline-block"><img src="{{ images.0.url }}" alt="{{ images.0.alt | trim | escape }}" class="team-portrait-image">
-              <div class="team-block-title smaller"></div>
-              <div class="team-block-title subtitle small-subtitle"></div>
-              <a href="{{ links.23 }}" class="team-social-button dark w-inline-block"><img src="{{ images.-1ad73d05.url }}" alt="{{ images.-1ad73d05.alt | trim | escape }}" class="team-social-icon dark"></a>
-              <a href="{{ links.23 }}" class="team-social-button dark w-inline-block"><img src="{{ images.2a5efce7.url }}" alt="{{ images.2a5efce7.alt | trim | escape }}" class="team-social-icon dark"></a>
-              <a href="{{ links.23 }}" class="team-social-button dark w-inline-block"><img src="{{ images.6048c6af.url }}" alt="{{ images.6048c6af.alt | trim | escape }}" class="team-social-icon dark"></a>
+      {%- assign collection = collections.team | filter: "f_featured,ne,true", "ALL", page.inputPath | limit: 3 | sort: "-created-on" -%}<div class="team-member-list-wrapper w-dyn-list">
+        {%- unless collection.length == 0 -%}<div role="list" class="team-member-list w-dyn-items w-row">
+          {%- for item in collection -%}<div role="listitem" class="team-member-item w-dyn-item w-col w-col-4">
+            <div class="team-outline-block"><img src="{{ item.data.f_portrait-photo.url }}" alt="{{ item.data.f_portrait-photo.alt }}" class="team-portrait-image">
+              <div class="team-block-title smaller">{{ item.data.title }}</div>
+              <div class="team-block-title subtitle small-subtitle">{{ item.data.f_job-title }}</div>
+              {%- if item.data.f_facebook-link -%}<a href="{{ item.data.f_facebook-link }}" class="team-social-button dark w-inline-block"><img src="{{ images.-1ad73d05.url }}" alt="{{ images.-1ad73d05.alt | trim | escape }}" class="team-social-icon dark"></a>{%- endif -%}
+              {%- if item.data.f_twitter-link -%}<a href="{{ item.data.f_twitter-link }}" class="team-social-button dark w-inline-block"><img src="{{ images.2a5efce7.url }}" alt="{{ images.2a5efce7.alt | trim | escape }}" class="team-social-icon dark"></a>{%- endif -%}
+              {%- if item.data.f_google-link -%}<a href="{{ item.data.f_google-link }}" class="team-social-button dark w-inline-block"><img src="{{ images.6048c6af.url }}" alt="{{ images.6048c6af.alt | trim | escape }}" class="team-social-icon dark"></a>{%- endif -%}
             </div>
-          </div>
-        </div>
-        <div class="empty-state w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endunless -%}
+        {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
           <div>{{ texts.3d503d2b }}</div>
-        </div>
+        </div>{%- endif -%}
       </div>
     </div>
   </div>

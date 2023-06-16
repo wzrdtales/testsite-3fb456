@@ -21,7 +21,7 @@
             aspect-ratio: 16 / 9;
         }</style></head>
 <body>
-  <div data-collapse="medium" data-animation="default" data-duration="400" data-no-scroll="1" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
+  <div data-animation="default" class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" data-duration="400">
     <div class="w-container">
       <a href="{{ links.2f }}" class="logo-block w-nav-brand"><img src="{{ images.-2a485a80.url }}" alt="{{ images.-2a485a80.alt | trim | escape }}" class="logo"></a>
       <nav role="navigation" class="nav-menu w-nav-menu">
@@ -115,20 +115,20 @@
   </div>
   <div class="section _2-column-pricing wf-section">
     <div class="container w-container">
-      <div class="team-member-list-wrapper w-dyn-list">
-        <div role="list" class="team-member-list w-dyn-items w-row">
-          <div role="listitem" class="team-member-item w-dyn-item w-col w-col-6">
+      {%- assign collection = collections.team | limit: 4 | sort: "-created-on" -%}<div class="team-member-list-wrapper w-dyn-list">
+        {%- unless collection.length == 0 -%}<div role="list" class="team-member-list w-dyn-items w-row">
+          {%- for item in collection -%}<div role="listitem" class="team-member-item w-dyn-item w-col w-col-6">
             <div class="team-wrapper w-clearfix">
-              <div class="team-image"></div>
-              <div class="team-title"></div>
-              <div class="team-title title"></div>
-              <p class="team-description"></p>
+              <div class="team-image" style="background-image: url('{{item.data.f_portrait-photo.url}}');"></div>
+              <div class="team-title">{{ item.data.title }}</div>
+              <div class="team-title title">{{ item.data.f_job-title }}</div>
+              <p class="team-description">{{ item.data.f_short-description }}</p>
             </div>
-          </div>
-        </div>
-        <div class="empty-state w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endunless -%}
+        {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
           <div>{{ texts.3d503d2b }}</div>
-        </div>
+        </div>{%- endif -%}
       </div>
       <div class="top-line-block">
         <div class="text-row w-row">

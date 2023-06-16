@@ -21,7 +21,7 @@
             aspect-ratio: 16 / 9;
         }</style></head>
 <body>
-  <div data-collapse="medium" data-animation="default" data-duration="400" data-no-scroll="1" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
+  <div data-animation="default" class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" data-duration="400">
     <div class="w-container">
       <a href="{{ links.2f }}" class="logo-block w-nav-brand"><img src="{{ images.-2a485a80.url }}" alt="{{ images.-2a485a80.alt | trim | escape }}" class="logo"></a>
       <nav role="navigation" class="nav-menu w-nav-menu">
@@ -197,78 +197,78 @@
       </div>
       <div class="portfolio-row w-row">
         <div class="portfolio-col-left w-col w-col-6">
-          <div class="portfolio-list-wrapper w-dyn-list">
-            <div role="list" class="portfolio-list w-clearfix w-dyn-items">
-              <div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item">
+          {%- assign collection = collections.portfolio | sort: "-created-on, title" | limit: 1 -%}<div class="portfolio-list-wrapper w-dyn-list">
+            {%- unless collection.length == 0 -%}<div role="list" class="portfolio-list w-clearfix w-dyn-items">
+              {%- for item in collection -%}<div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item">
                 <div data-ix="hide-lightbox" class="portfolio-lightbox-overlay">
                   <div class="portfolio-image-wrapper">
-                    <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ images.0.url }}" alt="{{ images.0.alt | trim | escape }}" class="portfolio-image">
+                    <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ item.data.f_image.url }}" alt="{{ item.data.f_image.alt }}" class="portfolio-image">
                   </div>
                 </div>
-                <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block large w-inline-block">
+                <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block large w-inline-block" style="background-image: url('{{item.data.f_image.url}}');">
                   <div data-ix="hide-block-overlay" class="portfolio-overlay-block">
                     <div class="portfolio-overlay-content-wrapper">
-                      <div data-ix="hide-block-title" class="portfolio-block-title"></div>
-                      <div data-ix="hide-block-description" class="portfolio-block-subtitle"></div>
+                      <div data-ix="hide-block-title" class="portfolio-block-title">{{ item.data.title }}</div>
+                      <div data-ix="hide-block-description" class="portfolio-block-subtitle">{{ item.data.f_short-description }}</div>
                       <div data-ix="hide-block-button" class="button text-button">{{ texts.1624a3ae }}</div>
                     </div>
                   </div>
                 </a>
-              </div>
-            </div>
-            <div class="empty-state w-dyn-empty">
+              </div>{%- endfor -%}
+            </div>{%- endunless -%}
+            {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
               <div>{{ texts.-5710415d }}</div>
-            </div>
+            </div>{%- endif -%}
           </div>
         </div>
         <div class="portfolio-col-right w-col w-col-6">
-          <div class="portfolio-list-wrapper w-dyn-list">
-            <div role="list" class="portfolio-list w-clearfix w-dyn-items">
-              <div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item">
+          {%- assign collection = collections.portfolio | sort: "-created-on, title" | offset: 1 | limit: 2 -%}<div class="portfolio-list-wrapper w-dyn-list">
+            {%- unless collection.length == 0 -%}<div role="list" class="portfolio-list w-clearfix w-dyn-items">
+              {%- for item in collection -%}<div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item">
                 <div data-ix="hide-lightbox" class="portfolio-lightbox-overlay">
                   <div class="portfolio-image-wrapper">
-                    <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ images.0.url }}" alt="{{ images.0.alt | trim | escape }}" class="portfolio-image">
+                    <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ item.data.f_image.url }}" alt="{{ item.data.f_image.alt }}" class="portfolio-image">
                   </div>
                 </div>
-                <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block medium w-inline-block">
+                <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block medium w-inline-block" style="background-image: url('{{item.data.f_image.url}}');">
                   <div data-ix="hide-block-overlay" class="portfolio-overlay-block">
                     <div class="portfolio-overlay-content-wrapper">
-                      <div data-ix="hide-block-title" class="portfolio-block-title"></div>
-                      <div data-ix="hide-block-description" class="portfolio-block-subtitle"></div>
+                      <div data-ix="hide-block-title" class="portfolio-block-title">{{ item.data.title }}</div>
+                      <div data-ix="hide-block-description" class="portfolio-block-subtitle">{{ item.data.f_short-description }}</div>
                       <div data-ix="hide-block-button" class="button text-button">{{ texts.1624a3ae }}</div>
                     </div>
                   </div>
                 </a>
-              </div>
-            </div>
-            <div class="empty-state w-dyn-empty">
+              </div>{%- endfor -%}
+            </div>{%- endunless -%}
+            {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
               <div>{{ texts.-5710415d }}</div>
-            </div>
+            </div>{%- endif -%}
           </div>
         </div>
       </div>
-      <div class="portfolio-list-wrapper w-dyn-list">
-        <div role="list" class="portfolio-list w-clearfix w-dyn-items w-row">
-          <div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item w-col w-col-3">
+      {%- assign collection = collections.portfolio | sort: "-created-on, title" | offset: 3 | limit: 4 -%}<div class="portfolio-list-wrapper w-dyn-list">
+        {%- unless collection.length == 0 -%}<div role="list" class="portfolio-list w-clearfix w-dyn-items w-row">
+          {%- for item in collection -%}<div data-ix="show-block-overlay" role="listitem" class="portfolio-item w-dyn-item w-col w-col-3">
             <div data-ix="hide-lightbox" class="portfolio-lightbox-overlay">
               <div class="portfolio-image-wrapper">
-                <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ images.0.url }}" alt="{{ images.0.alt | trim | escape }}" class="portfolio-image">
+                <a href="{{ links.23 }}" data-ix="close-lightbox" class="close-lightbox-button w-inline-block"><img src="{{ images.-36bee4fd.url }}" alt="{{ images.-36bee4fd.alt | trim | escape }}" class="lightbox-close-icon"></a><img src="{{ item.data.f_image.url }}" alt="{{ item.data.f_image.alt }}" class="portfolio-image">
               </div>
             </div>
-            <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block medium w-inline-block">
+            <a href="{{ links.23 }}" data-ix="show-lightbox" class="portfolio-image-block medium w-inline-block" style="background-image: url('{{item.data.f_image.url}}');">
               <div data-ix="hide-block-overlay" class="portfolio-overlay-block">
                 <div class="portfolio-overlay-content-wrapper">
-                  <div data-ix="hide-block-title" class="portfolio-block-title"></div>
-                  <div data-ix="hide-block-description" class="portfolio-block-subtitle"></div>
+                  <div data-ix="hide-block-title" class="portfolio-block-title">{{ item.data.title }}</div>
+                  <div data-ix="hide-block-description" class="portfolio-block-subtitle">{{ item.data.f_short-description }}</div>
                   <div data-ix="hide-block-button" class="button text-button">{{ texts.1624a3ae }}</div>
                 </div>
               </div>
             </a>
-          </div>
-        </div>
-        <div class="empty-state w-dyn-empty">
+          </div>{%- endfor -%}
+        </div>{%- endunless -%}
+        {%- if collection.length == 0 -%}<div class="empty-state w-dyn-empty">
           <div>{{ texts.-5710415d }}</div>
-        </div>
+        </div>{%- endif -%}
       </div>
       <p class="bottom-paragraph">{{ texts.-3b4076fa }}<a href="{{ links.1626a9 }}">{{ texts.-4c2b6418 }}</a>
       </p>
